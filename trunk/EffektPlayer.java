@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 
+//this is a comment
 
 public class EffektPlayer extends Frame implements ControllerListener {
 	
