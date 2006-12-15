@@ -3,6 +3,8 @@ import java.io.IOException;
 
 import javax.media.*;
 import javax.media.format.*;
+import javax.media.protocol.PullBufferDataSource;
+import javax.media.protocol.PullBufferStream;
 import javax.media.protocol.PullDataSource;
 import javax.media.protocol.PullSourceStream;
 
@@ -24,6 +26,7 @@ public class Footsteps implements Effect {
 	
 	Buffer in = new Buffer();
 	Buffer out = new Buffer();
+	PullDataSource effectSource;
 	PullSourceStream effectStream;
 	
 	String outPath;
@@ -76,16 +79,16 @@ public class Footsteps implements Effect {
 		
 		try {
 			MediaLocator effectPath = new MediaLocator("file" + "C:\\DATEN\\Java workspace\\tests\\Trumpet1.wav");
-			PullDataSource effectSource = (PullDataSource)Manager.createDataSource(effectPath);
+			effectSource = (PullDataSource)Manager.createDataSource(effectPath);
 			effectSource.connect();
 			effectSource.start();
 			effectStream = effectSource.getStreams()[0];
 			
 		} catch (NoDataSourceException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -194,9 +197,29 @@ public class Footsteps implements Effect {
 		 byte[] outData = validateByteArraySize(outputBuffer, inLength);
 		 int outOffset = outputBuffer.getOffset();
 		 
+		 
+		 byte[] effectData = new byte[inLength];
+		 try {
+			effectStream.read(effectData,0,inLength);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		 
 		 int samplesNumber = inLength/2;
 		 
 		 //main
+		 
+		 //Open effect file
+		 try {
+			open();
+		} catch (ResourceUnavailableException e) {
+			e.printStackTrace();
+		}
+		
+	
+		 
 		 for (int i = 0; i < samplesNumber; i++) {
 			 int tempL = inData[inOffset++];
 			 int tempH = inData[inOffset++];
