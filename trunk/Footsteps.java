@@ -78,7 +78,7 @@ public class Footsteps implements Effect {
 		
 		
 		try {
-			MediaLocator effectPath = new MediaLocator("file:" + "C:\\DATEN\\Java workspace\\jfootsteps\\Trumpet1.wav");
+			MediaLocator effectPath = new MediaLocator("file:C:\\Dokumente und Einstellungen\\Stephe\\Eigene Dateien\\Uni\\Multimedia I\\repo\\Trumpet1.wav");
 			effectSource = (PullDataSource)Manager.createDataSource(effectPath);
 			effectSource.connect();
 			effectSource.start();

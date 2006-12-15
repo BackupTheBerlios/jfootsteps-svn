@@ -64,6 +64,8 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		try {
 			Codec codec[] = {new GainEffect()};
 			audioTrack.setCodecChain(codec);
+                       
+                        
 		} catch (UnsupportedPlugInException e) {
 			System.err.println("The processor doesn't support effects");
 		}
@@ -71,10 +73,10 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		p.prefetch();
 		
 		
-		if(!waitForState(p.Prefetched)){
-			System.out.println("Failed to realize teh processor.");
+		/*if(!waitForState(p.Prefetched)){
+			System.out.println("Failed to realize the processor.");
 			return false;
-		}
+		}*/
 		
 		
 		setLayout(new BorderLayout());
@@ -85,7 +87,7 @@ public class EffektPlayer extends Frame implements ControllerListener {
 			add("South", cc);
 		}
 		
-		p.start();
+		//p.start();
 		
 		setVisible(true);
 		
@@ -122,7 +124,7 @@ public class EffektPlayer extends Frame implements ControllerListener {
 			e instanceof PrefetchCompleteEvent) {
 				
 				stateTransitionOK = true;
-				waitSync.notifyAll();
+				//waitSync.notifyAll();
 		} else if (e instanceof ResourceUnavailableEvent) {
 			synchronized (waitSync) {
 				stateTransitionOK = false;
@@ -136,12 +138,12 @@ public class EffektPlayer extends Frame implements ControllerListener {
 	
 	public static void main (String[] args) {
 		
-		if(args.length == 0) {
+		/*if(args.length == 0) {
 			prUsage();
 			System.exit(0);
-		}
+		}*/
 		
-		String url = "file:" + "C:\\DATEN\\Java workspace\\jfootsteps\\aufnahme.wav";
+		String url = "file:C:\\Dokumente und Einstellungen\\Stephe\\Eigene Dateien\\Uni\\Multimedia I\\repo\\Trumpet1.wav";
 		
 		if (url.indexOf(":") < 0) {
 			prUsage();
