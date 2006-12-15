@@ -1,6 +1,10 @@
 
+import java.io.IOException;
+
 import javax.media.*;
 import javax.media.format.*;
+import javax.media.protocol.PullDataSource;
+import javax.media.protocol.PullSourceStream;
 
 
 import com.sun.media.protocol.file.DataSource;
@@ -20,6 +24,7 @@ public class Footsteps implements Effect {
 	
 	Buffer in = new Buffer();
 	Buffer out = new Buffer();
+	PullSourceStream effectStream;
 	
 	String outPath;
 	
@@ -68,10 +73,22 @@ public class Footsteps implements Effect {
 	
 	public void open () throws ResourceUnavailableException {
 		
-		MediaLocator effectPath = new MediaLocator("file" + "C:\\DATEN\\Java workspace\\tests\\Trumpet1.wav");
-		DataSource effectSource = new DataSource();
-		effectSource.setLocator(effectPath);
-		in.setData(effectSource);
+		
+		try {
+			MediaLocator effectPath = new MediaLocator("file" + "C:\\DATEN\\Java workspace\\tests\\Trumpet1.wav");
+			PullDataSource effectSource = (PullDataSource)Manager.createDataSource(effectPath);
+			effectSource.connect();
+			effectSource.start();
+			effectStream = effectSource.getStreams()[0];
+			
+		} catch (NoDataSourceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
