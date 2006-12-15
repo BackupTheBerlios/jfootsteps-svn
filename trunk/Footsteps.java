@@ -37,14 +37,14 @@ public class Footsteps implements Effect {
 		this.speed = speed;
 	}
 	
-	public Footsteps() {
+	/*public Footsteps() {
 		this.volume = volume;
 		this.pitch = pitch;
 		this.speed = speed;
-	}
+	}*/
 	
 	//Formate initialisieren
-	public void footsteps(){
+	public Footsteps(){
 		supportedInFormats = new Format[] {
 				new AudioFormat (
 						AudioFormat.LINEAR,
@@ -78,21 +78,21 @@ public class Footsteps implements Effect {
 		
 		
 		try {
-			MediaLocator effectPath = new MediaLocator("file" + "C:\\DATEN\\Java workspace\\tests\\Trumpet1.wav");
+			MediaLocator effectPath = new MediaLocator("file:" + "C:\\DATEN\\Java workspace\\jfootsteps\\Trumpet1.wav");
 			effectSource = (PullDataSource)Manager.createDataSource(effectPath);
 			effectSource.connect();
 			effectSource.start();
 			effectStream = effectSource.getStreams()[0];
 			
 		} catch (NoDataSourceException e) {
-			
+			System.out.append("fs_88");
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+			System.out.append("fs_91");
 			e.printStackTrace();
 		}
 		
-		
+		System.out.append("fs_95");
 	}
 	
 	public void close(){
@@ -115,6 +115,7 @@ public class Footsteps implements Effect {
 			}
 			return null;
 		}catch (Exception e) {
+			System.out.append("fs_118");
 			return null;
 		}
 	}
@@ -203,10 +204,11 @@ public class Footsteps implements Effect {
 			effectStream.read(effectData,0,inLength);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
+			System.out.append("fs_206");
 			e1.printStackTrace();
 		}
 
-		 
+		System.out.append("fs_211");
 		 int samplesNumber = inLength/2;
 		 
 		 //main
@@ -215,6 +217,7 @@ public class Footsteps implements Effect {
 		 try {
 			open();
 		} catch (ResourceUnavailableException e) {
+			System.out.append("fs_219");
 			e.printStackTrace();
 		}
 		

@@ -62,27 +62,25 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		System.err.println("Audio Format: " + audioTrack.getFormat());
 		
 		try {
-			Codec codec[] = {new Footsteps()};
+			Codec codec[] = {new GainEffect()};
 			audioTrack.setCodecChain(codec);
 		} catch (UnsupportedPlugInException e) {
 			System.err.println("The processor doesn't support effects");
 		}
-		
+	
 		p.prefetch();
+		
+		
 		if(!waitForState(p.Prefetched)){
-			System.err.println("Failed to realize teh processor.");
+			System.out.println("Failed to realize teh processor.");
 			return false;
 		}
+		
 		
 		setLayout(new BorderLayout());
 		
 		Component cc;
-		Component vc;
-		
-		if((vc = p.getVisualComponent()) != null) {
-			add("Center", vc);
-		}
-		
+	
 		if((cc=p.getControlPanelComponent()) != null) {
 			add("South", cc);
 		}
@@ -138,12 +136,12 @@ public class EffektPlayer extends Frame implements ControllerListener {
 	
 	public static void main (String[] args) {
 		
-		/*if(args.length == 0) {
+		if(args.length == 0) {
 			prUsage();
 			System.exit(0);
-		}*/
+		}
 		
-		String url = "C:\\DATEN\\Java workspace\\tests\\Susanna.mp3";
+		String url = "file:" + "C:\\DATEN\\Java workspace\\jfootsteps\\aufnahme.wav";
 		
 		if (url.indexOf(":") < 0) {
 			prUsage();

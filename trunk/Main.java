@@ -23,7 +23,7 @@ public class Main {
         try
         {
             System.out.println("opening...");
-             fs.open();
+            fs.open();
             System.out.println("done.");
         }
         catch(Exception ex) {}
