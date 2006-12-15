@@ -254,7 +254,7 @@ public class GainEffect implements Effect {
             tempL = inData[inOffset ++] & 0xff;
 
 	    sample = (short)((tempH << 8) | tempL & 255);
-	    //sample = (short)(sample * gain);
+	    sample = (short)(sample * 20.5F);
             System.out.println("Sample Nr. " + i + ": "+sample);
             outData[j ++]=(byte)(sample >> 8); 
             outData[j ++]=(byte)(sample & 0xff);

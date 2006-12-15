@@ -39,8 +39,19 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		}
 		
 		p.setContentDescriptor(null);
-		
+		Codec c[] = {new GainEffect()};
 		TrackControl tc[] = p.getTrackControls();
+                for (int i = 0;i<tc.length;i++)
+                {
+            try {
+                tc[i].setCodecChain(c);
+            } catch (NotConfiguredError ex) {
+                ex.printStackTrace();
+            } catch (UnsupportedPlugInException ex) {
+                ex.printStackTrace();
+            }
+			
+                }
 		if (tc == null){
 			System.err.println("Failed to obtain track controls form the processor.");
 			return false;
@@ -61,14 +72,15 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		
 		System.err.println("Audio Format: " + audioTrack.getFormat());
 		
-		try {
+		/*try {
 			Codec codec[] = {new GainEffect()};
 			audioTrack.setCodecChain(codec);
                        
                         
 		} catch (UnsupportedPlugInException e) {
 			System.err.println("The processor doesn't support effects");
-		}
+		}*/
+                System.out.println("aha");
 	
 		p.prefetch();
 		
@@ -87,7 +99,7 @@ public class EffektPlayer extends Frame implements ControllerListener {
 			add("South", cc);
 		}
 		
-		//p.start();
+		p.start();
 		
 		setVisible(true);
 		
