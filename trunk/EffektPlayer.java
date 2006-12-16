@@ -1,3 +1,5 @@
+package trunk;
+
 import javax.media.*;
 import javax.media.control.TrackControl;
 import javax.media.format.AudioFormat;
@@ -39,7 +41,7 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		}
 		
 		p.setContentDescriptor(null);
-		Codec c[] = {new GainEffect()};
+		Codec c[] = {new Footsteps()};
 		TrackControl tc[] = p.getTrackControls();
                 for (int i = 0;i<tc.length;i++)
                 {
@@ -85,10 +87,10 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		p.prefetch();
 		
 		
-		/*if(!waitForState(p.Prefetched)){
+		if(!waitForState(p.Prefetched)){
 			System.out.println("Failed to realize the processor.");
 			return false;
-		}*/
+		}
 		
 		
 		setLayout(new BorderLayout());
@@ -134,9 +136,10 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		if (e instanceof ConfigureCompleteEvent ||
 			e instanceof RealizeCompleteEvent ||
 			e instanceof PrefetchCompleteEvent) {
-				
+				synchronized (waitSync) {
 				stateTransitionOK = true;
-				//waitSync.notifyAll();
+				waitSync.notifyAll();
+				}
 		} else if (e instanceof ResourceUnavailableEvent) {
 			synchronized (waitSync) {
 				stateTransitionOK = false;
@@ -155,7 +158,7 @@ public class EffektPlayer extends Frame implements ControllerListener {
 			System.exit(0);
 		}*/
 		
-		String url = "file:C:\\Dokumente und Einstellungen\\Stephe\\Eigene Dateien\\Uni\\Multimedia I\\repo\\Trumpet1.wav";
+		String url = "file:" + "C:\\DATEN\\Java workspace\\jfootsteps\\Trumpet1.wav";
 		
 		if (url.indexOf(":") < 0) {
 			prUsage();
