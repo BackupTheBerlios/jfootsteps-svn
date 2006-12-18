@@ -1,3 +1,5 @@
+package trunk;
+
 
 import java.io.IOException;
 
@@ -20,7 +22,7 @@ public class Footsteps implements Effect {
 	protected Format[] supportedInFormats = new Format[0];	//supported input formats
 	protected Format[] supportedOutFormats = new Format[0];	//supported output formats
 	
-	protected Float volume = 1.0F;						//volume scale factor
+	protected Float volume = 2.0F;						//volume scale factor
 	protected Float pitch = 1.0F;						
 	protected Float speed = 1.0F;
 	
@@ -31,20 +33,20 @@ public class Footsteps implements Effect {
 	
 	String outPath;
 	
-	public Footsteps(Float volume, Float pitch, Float speed) {
+	/*public Footsteps(Float volume, Float pitch, Float speed) {
 		this.volume = volume;
 		this.pitch = pitch;
 		this.speed = speed;
 	}
 	
-	/*public Footsteps() {
+	public Footsteps() {
 		this.volume = volume;
 		this.pitch = pitch;
 		this.speed = speed;
 	}*/
 	
 	//Formate initialisieren
-	public Footsteps(){
+	public Footsteps(Float volume, Float pitch, Float speed){
 		supportedInFormats = new Format[] {
 				new AudioFormat (
 						AudioFormat.LINEAR,
@@ -72,27 +74,30 @@ public class Footsteps implements Effect {
 						Format.byteArray
 				)		
 		};
+		this.volume = volume;
+		this.pitch = pitch;
+		this.speed = speed;
 	}
 	
 	public void open () throws ResourceUnavailableException {
 		
 		
 		try {
-			MediaLocator effectPath = new MediaLocator("file:C:\\Dokumente und Einstellungen\\Stephe\\Eigene Dateien\\Uni\\Multimedia I\\repo\\Trumpet1.wav");
+			MediaLocator effectPath = new MediaLocator("file:C:\\DATEN\\Java workspace\\jfootsteps\\explo.wav");
 			effectSource = (PullDataSource)Manager.createDataSource(effectPath);
 			effectSource.connect();
 			effectSource.start();
 			effectStream = effectSource.getStreams()[0];
 			
 		} catch (NoDataSourceException e) {
-			System.out.append("fs_88");
+			System.out.println("failure in open");
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.append("fs_91");
+			System.out.println("failure in open");
 			e.printStackTrace();
 		}
 		
-		System.out.append("fs_95");
+		//System.out.append("fs_95");
 	}
 	
 	public void close(){
@@ -115,7 +120,6 @@ public class Footsteps implements Effect {
 			}
 			return null;
 		}catch (Exception e) {
-			System.out.append("fs_118");
 			return null;
 		}
 	}
@@ -173,15 +177,15 @@ public class Footsteps implements Effect {
 	
 
 	public void setVolume(Float newVolume) {
-		volume = newVolume;
+		this.volume = newVolume;
 	}
 	
 	public void setPitch(Float newPitch) {
-		pitch = newPitch;
+		this.pitch = newPitch;
 	}
 	
 	public void setSpeed(Float newSpeed) {
-		speed = newSpeed;
+		this.speed = newSpeed;
 	}
 	
 	//get Name
@@ -198,17 +202,8 @@ public class Footsteps implements Effect {
 		 byte[] outData = validateByteArraySize(outputBuffer, inLength);
 		 int outOffset = outputBuffer.getOffset();
 		 
-		 
-		 byte[] effectData = new byte[inLength];
-		 try {
-			effectStream.read(effectData,0,inLength);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			System.out.append("fs_206");
-			e1.printStackTrace();
-		}
 
-		System.out.append("fs_211");
+		//System.out.append("fs_211");
 		 int samplesNumber = inLength/2;
 		 
 		 //main
@@ -217,8 +212,16 @@ public class Footsteps implements Effect {
 		 try {
 			open();
 		} catch (ResourceUnavailableException e) {
-			System.out.append("fs_219");
+			System.out.println("open läuft nicht");
 			e.printStackTrace();
+		}
+		
+		 byte[] effectData = new byte[inLength];
+		 try {
+			effectStream.read(effectData,0,inLength);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 	
@@ -228,7 +231,12 @@ public class Footsteps implements Effect {
 			 int tempH = inData[inOffset++];
 			 int sample = tempH | (tempL & 255);
 			 
+			 /*int tempLe = effectData[inOffset++];
+			 int tempHe = effectData[inOffset++];
+			 int effectSample = tempHe | (tempLe & 255);*/
+			 
 			 sample = (int)(sample*volume);
+			 //sample = (int)(sample+effectSample);
 			 
 			 if (sample>32767)
 				 sample = 32767;
