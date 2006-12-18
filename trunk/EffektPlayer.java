@@ -41,7 +41,7 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		}
 		
 		p.setContentDescriptor(null);
-		Codec c[] = {new Footsteps()};
+		Codec c[] = {new Footsteps(2.0F, 2.0F, 2.0F)};
 		TrackControl tc[] = p.getTrackControls();
                 for (int i = 0;i<tc.length;i++)
                 {
@@ -82,7 +82,7 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		} catch (UnsupportedPlugInException e) {
 			System.err.println("The processor doesn't support effects");
 		}*/
-                System.out.println("aha");
+                //System.out.println("aha");
 	
 		p.prefetch();
 		
