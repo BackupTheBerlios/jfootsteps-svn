@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE effectsettings [
+	<!ELEMENT effectsettings (path, start, duration, volume, pitch, speed)>
+	<!ELEMENT path EMPTY>
+		<!ATTLIST path value CDATA #REQUIRED>
+	<!ELEMENT start EMPTY>
+		<!ATTLIST start value CDATA #REQUIRED>
+	<!ELEMENT duration EMPTY>
+		<!ATTLIST duration value CDATA #REQUIRED>
+	<!ELEMENT volume EMPTY>
+		<!ATTLIST volume value CDATA #REQUIRED>
+	<!ELEMENT pitch EMPTY>
+		<!ATTLIST pitch value CDATA #REQUIRED>
+	<!ELEMENT speed EMPTY>
+		<!ATTLIST speed value CDATA #REQUIRED>
+]>
+
+<effectsettings>
+	 <path value ="C:\\DATEN\\Java workspace\\jfootsteps\\Trumpet1.wav"></path>
+	 <start value="30"></start>
+	 <duration value="10"></duration>
+	 <volume value="2.0"></volume>
+	 <pitch value="2.5"></pitch>
+	 <speed value="3.0"></speed>
+</effectsettings>
