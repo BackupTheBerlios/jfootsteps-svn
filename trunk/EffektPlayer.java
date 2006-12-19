@@ -157,8 +157,9 @@ public class EffektPlayer extends Frame implements ControllerListener {
 			prUsage();
 			System.exit(0);
 		}*/
+		String file = "file:";
+		String url = "C:\\DATEN\\Java workspace\\jfootsteps\\Trumpet1.wav";
 		
-		String url = "file:" + "C:\\DATEN\\Java workspace\\jfootsteps\\Trumpet1.wav";
 		
 		if (url.indexOf(":") < 0) {
 			prUsage();
@@ -167,12 +168,12 @@ public class EffektPlayer extends Frame implements ControllerListener {
 		
 		MediaLocator m1;
 		
-		if((m1 = new MediaLocator(url)) == null) {
+		if((m1 = new MediaLocator(file + url)) == null) {
 			System.err.println("Cannot build media locator from: " + url);
 			System.exit(0);
 		}
 		
-		EffektPlayer player = new EffektPlayer(url);
+		EffektPlayer player = new EffektPlayer(file + url);
 		
 		if(!player.open(m1)) {
 			System.exit(0);
